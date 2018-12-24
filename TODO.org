@@ -1,0 +1,3 @@
+* Random Thoughts
+- For the macro that wraps GDAPI function calls, allow the fuctions to
+  be accessed with or without the "godot_" prefix
