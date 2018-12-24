@@ -1,0 +1,3 @@
+* Godot-Lisp
+This is a very early WIP attempt at bringing common lisp scripting to
+godot through GDNative, with the common lisp implementation ECL.
