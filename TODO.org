@@ -1,3 +1,7 @@
+* To write
+- conversion between ~cl_object~ and ~variant~
+- conversion between ~godot_string~ and ~cl_object~
+- 
 * Random Thoughts
 - For the macro that wraps GDAPI function calls, allow the fuctions to
   be accessed with or without the "godot_" prefix

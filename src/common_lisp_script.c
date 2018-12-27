@@ -49,6 +49,8 @@ static godot_string cl_get_template_source_code(godot_pluginscript_language_data
   return godot_string_chars_to_utf8("");
 }
 
+static void cl_add_global_constant(godot_pluginscript_language_data *p_data, const godot_string *p_variable, const godot_variant *p_value) {}
+
 void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *options) {
   GDNATIVE_API_INIT(options);
 
@@ -71,7 +73,7 @@ void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *options) {
   
   desc.has_named_classes = false;
   desc.get_template_source_code = &cl_get_template_source_code;
-  desc.add_global_constant = NULL;
+  desc.add_global_constant = &cl_add_global_constant;
 
   desc.script_desc.init = &cl_script_init;
   //godot_pluginscript_script_manifest (*init)(godot_pluginscript_language_data *p_data, const godot_string *p_path, const godot_string *p_source, godot_error *r_error);
@@ -79,10 +81,18 @@ void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *options) {
 
   desc.script_desc.instance_desc.init = &cl_script_instance_init;
   desc.script_desc.instance_desc.finish = &cl_script_instance_finish;
+
+  // get and set "properties" on script classes (slots), will have to convert godot's "variant" to "cl_object"
   desc.script_desc.instance_desc.set_prop = NULL;
   desc.script_desc.instance_desc.get_prop = NULL;
+
+  // Godot provides a handle to the script class which the method is to be called on
   desc.script_desc.instance_desc.call_method = NULL;
+
+  // should call all parent notification metods. Should be trivial with CLOS.
   desc.script_desc.instance_desc.notification = NULL;
+
+  // not sure  what to do here.
   desc.script_desc.instance_desc.refcount_incremented = NULL;
   desc.script_desc.instance_desc.refcount_decremented = NULL;
 
